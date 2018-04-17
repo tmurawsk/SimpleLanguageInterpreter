@@ -1,7 +1,3 @@
-//
-// Created by tomson on 17.04.18.
-//
-
 #ifndef SIMPLELANGUAGEINTERPRETER_LEXER_H
 #define SIMPLELANGUAGEINTERPRETER_LEXER_H
 
