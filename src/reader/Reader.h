@@ -1,0 +1,14 @@
+//
+// Created by tomson on 17.04.18.
+//
+
+#ifndef SIMPLELANGUAGEINTERPRETER_READER_H
+#define SIMPLELANGUAGEINTERPRETER_READER_H
+
+
+class Reader {
+
+};
+
+
+#endif //SIMPLELANGUAGEINTERPRETER_READER_H
