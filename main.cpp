@@ -1,6 +1,19 @@
 #include <iostream>
 
+#include "lexer/Lexer.h"
+#include "token/Token.h"
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+
+    Lexer *lexer = new Lexer("../inputData.txt");
+    TokenID tokenID;
+
+    do {
+        tokenID = lexer->nextToken();
+        std::cout << Token::getTokenByID(tokenID) << std::endl;
+    }while(tokenID != TokenID::Eof);
+
+    delete lexer;
+
     return 0;
 }
