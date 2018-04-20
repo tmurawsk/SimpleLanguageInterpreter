@@ -45,12 +45,12 @@ std::unordered_map <std::string, TokenID> Token::keywordMap = {
         {"mat2", TokenID::Mat2},    {"mat3", TokenID::Mat3}
 };
 
-std::unordered_map <char, TokenID> Token::charMap = {
-        {';', TokenID::Semicolon},          {',', TokenID::Comma},
-        {'(', TokenID::RoundBracketOpen},   {')', TokenID::RoundBracketClose},
-        {'{', TokenID::CurlyBracketOpen},   {'}', TokenID::CurlyBracketClose},
-        {'[', TokenID::SquareBracketOpen},  {']', TokenID::SquareBracketClose},
-        {'+', TokenID::Plus},               {'-', TokenID::Minus},
-        {'*', TokenID::Multiply},           {'/', TokenID::Divide},
-        {'=', TokenID::Equal},              {'!', TokenID::Negation}
-};
+std::string Token::getTokenByID(TokenID tokenID) {
+    auto iter = nameMap.find(tokenID);
+    return iter == nameMap.end() ? nameMap.find(TokenID::Invalid)->second : iter->second;
+}
+
+TokenID Token::getKeywordByName(std::string name) {
+    auto iter = keywordMap.find(name);
+    return iter == keywordMap.end() ? TokenID::Invalid : iter->second;
+}

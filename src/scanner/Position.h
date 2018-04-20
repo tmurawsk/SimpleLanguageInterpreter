@@ -4,11 +4,9 @@
 #include <fstream>
 #include <ostream>
 
-class Position {
-public:
+struct Position {
     Position();
 
-private:
     int lineNr;
     int charNr;
     std::streampos linePos;

@@ -3,7 +3,7 @@
 
 #include <string>
 #include <unordered_map>
-#include "reader/Position.h"
+#include "scanner/Position.h"
 
 enum class TokenID {
     Main, Func, If, Else, While, Print, Return, Num, Mat2, Mat3,
@@ -26,7 +26,10 @@ private:
 
     static std::unordered_map <TokenID, std::string> nameMap;
     static std::unordered_map <std::string, TokenID> keywordMap;
-    static std::unordered_map <char, TokenID> charMap;
+
+public:
+    static std::string getTokenByID(TokenID tokenID);
+    static TokenID getKeywordByName(std::string name);
 };
 
 #endif //SIMPLELANGUAGEINTERPRETER_TOKEN_H
