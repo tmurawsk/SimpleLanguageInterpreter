@@ -5,12 +5,10 @@
 #include <ostream>
 
 struct Position {
-    Position();
+    Position() : lineNr(1), charNr(1) {};
 
     int lineNr;
     int charNr;
-    std::streampos linePos;
-    std::streampos charPos;
 };
 
 
