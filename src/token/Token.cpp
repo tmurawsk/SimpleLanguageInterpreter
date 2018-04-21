@@ -34,7 +34,7 @@ std::unordered_map <TokenID, std::string> Token::nameMap = {
         {TokenID::Name, "Name"},        {TokenID::Number, "Number"},
         {TokenID::String, "String"},
 
-        {TokenID::Invalid, "Invalid"},  {TokenID::Eof, "Eof"}
+        {TokenID::Invalid, "INVALID"},  {TokenID::Eof, "Eof"}
 };
 
 std::unordered_map <std::string, TokenID> Token::keywordMap = {
