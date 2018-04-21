@@ -16,6 +16,7 @@ private:
 
 public:
     char nextChar();
+    char peekChar();
     void fallBack(int offset);
     Position getPosition();
 };

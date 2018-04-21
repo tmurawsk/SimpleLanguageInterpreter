@@ -28,8 +28,17 @@ char Scanner::nextChar() {
     return c;
 }
 
+char Scanner::peekChar() {
+    return (char) file.peek();
+}
+
 void Scanner::fallBack(int offset) {
     file.seekg(-offset, std::ios_base::cur);
+
+    if(file.get() == '\n')
+        position.lineNr--;
+
+    file.seekg(-1, std::ios_base::cur);
 }
 
 Position Scanner::getPosition() {

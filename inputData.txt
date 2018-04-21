@@ -15,3 +15,14 @@ func foo (num a) mat3 {
 
     return result;
 }
+1ahbh2behbb3;
+
+func main () num {
+    num n = 5;
+    mat3 matrix = foo(n);
+
+    print ("My num: " + n);
+    print ("My matrix: " + matrix);
+
+    return 0;
+}
