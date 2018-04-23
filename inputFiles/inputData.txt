@@ -15,7 +15,8 @@ func foo (num a) mat3 {
 
     return result;
 }
-1ahbh2behbb3;
+
+666thisIsWrongVariableName666;
 
 func main () num {
     num n = 5;
