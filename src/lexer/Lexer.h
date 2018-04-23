@@ -12,7 +12,6 @@ public:
 
 private:
     Scanner scanner;
-    int errorCount;
     std::string token;
 
 public:

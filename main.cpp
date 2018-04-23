@@ -5,7 +5,7 @@
 
 int main() {
 
-    Lexer *lexer = new Lexer("../inputData.txt");
+    Lexer *lexer = new Lexer("../inputFiles/inputData.txt");
     TokenID tokenID;
 
     do {
