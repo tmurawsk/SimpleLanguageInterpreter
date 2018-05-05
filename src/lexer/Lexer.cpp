@@ -36,6 +36,8 @@ void Lexer::lexError(std::string msg) {
 }
 
 Token Lexer::nameTokenHandler(char c) {
+    Position pos = scanner.getPosition();
+
     do {
         token += c;
         if (token.length() >= NAMEMAXLENGTH) {
@@ -45,7 +47,7 @@ Token Lexer::nameTokenHandler(char c) {
                 c = scanner.nextChar();
 
             scanner.fallBack(1);
-            return Token(TokenID::Invalid, scanner.getPosition());
+            return Token(TokenID::Invalid, pos);
         }
 
         c = scanner.nextChar();
@@ -56,13 +58,14 @@ Token Lexer::nameTokenHandler(char c) {
     TokenID tokenID = Token::getKeywordByName(token);
 
     if (tokenID != TokenID::Invalid)
-        return Token(tokenID, scanner.getPosition());
+        return Token(tokenID, pos);
     else
-        return Token(TokenID::Name, scanner.getPosition());
+        return Token(TokenID::Name, pos, token);
 }
 
 Token Lexer::numberTokenHandler(char c) {
     int num = 0;
+    Position pos = scanner.getPosition();
 
     do {
         num = num * 10 + (c - '0');
@@ -73,7 +76,7 @@ Token Lexer::numberTokenHandler(char c) {
                 c = scanner.nextChar();
 
             scanner.fallBack(1);
-            return Token(TokenID::Invalid, scanner.getPosition());
+            return Token(TokenID::Invalid, pos);
         }
 
         c = scanner.nextChar();
@@ -86,40 +89,42 @@ Token Lexer::numberTokenHandler(char c) {
             c = scanner.nextChar();
 
         scanner.fallBack(1);
-        return Token(TokenID::Invalid, scanner.getPosition());
+        return Token(TokenID::Invalid, pos);
     }
 
     scanner.fallBack(1);
 
-    return Token(TokenID::Number, scanner.getPosition());
+    return Token(TokenID::Number, pos, std::to_string(num));
 }
 
 Token Lexer::otherTokenHandler(char c) {
+    Position pos = scanner.getPosition();
+
     switch (c) {
         case ';':
-            return Token(TokenID::Semicolon, scanner.getPosition());
+            return Token(TokenID::Semicolon, pos);
         case ',':
-            return Token(TokenID::Comma, scanner.getPosition());
+            return Token(TokenID::Comma, pos);
         case '(':
-            return Token(TokenID::RoundBracketOpen, scanner.getPosition());
+            return Token(TokenID::RoundBracketOpen, pos);
         case ')':
-            return Token(TokenID::RoundBracketClose, scanner.getPosition());
+            return Token(TokenID::RoundBracketClose, pos);
         case '{':
-            return Token(TokenID::CurlyBracketOpen, scanner.getPosition());
+            return Token(TokenID::CurlyBracketOpen, pos);
         case '}':
-            return Token(TokenID::CurlyBracketClose, scanner.getPosition());
+            return Token(TokenID::CurlyBracketClose, pos);
         case '[':
-            return Token(TokenID::SquareBracketOpen, scanner.getPosition());
+            return Token(TokenID::SquareBracketOpen, pos);
         case ']':
-            return Token(TokenID::SquareBracketClose, scanner.getPosition());
+            return Token(TokenID::SquareBracketClose, pos);
         case '+':
-            return Token(TokenID::Plus, scanner.getPosition());
+            return Token(TokenID::Plus, pos);
         case '-':
-            return Token(TokenID::Minus, scanner.getPosition());
+            return Token(TokenID::Minus, pos);
         case '*':
-            return Token(TokenID::Multiply, scanner.getPosition());
+            return Token(TokenID::Multiply, pos);
         case '/':
-            return Token(TokenID::Divide, scanner.getPosition());
+            return Token(TokenID::Divide, pos);
         case '=':
             return ifNextIsEqual('=', TokenID::Equal, TokenID::Assign);
         case '!':
@@ -138,26 +143,28 @@ Token Lexer::otherTokenHandler(char c) {
             } while (c != '"' && c != EOF);
 
             if (c == EOF) {
-                lexError("ERROR: INVALID TOKEN");
-                return Token(TokenID::Invalid, scanner.getPosition());
+                lexError("ERROR: NO STRING CLOSING MARK FOUND!");
+                return Token(TokenID::Invalid, pos);
             }
             else
-                return Token(TokenID::String, scanner.getPosition());
+                return Token(TokenID::String, pos);
         default:
             lexError("ERROR: INVALID TOKEN");
-            return Token(TokenID::Invalid, scanner.getPosition());
+            return Token(TokenID::Invalid, pos);
     }
 }
 
 Token Lexer::ifNextIsEqual(char expectedChar, TokenID tokenIfTrue, TokenID tokenIfFalse) {
+    Position pos = scanner.getPosition();
     char c = scanner.peekChar();
+
     if (c == expectedChar) {
         scanner.nextChar();
-        return Token(tokenIfTrue, scanner.getPosition());
+        return Token(tokenIfTrue, pos);
     }
     else {
         if(tokenIfFalse == TokenID::Invalid)
             lexError("ERROR: INVALID TOKEN");
-        return Token(tokenIfFalse, scanner.getPosition());
+        return Token(tokenIfFalse, pos);
     }
 }

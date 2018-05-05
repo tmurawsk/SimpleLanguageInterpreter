@@ -1,6 +1,8 @@
 #include "Token.h"
 
-Token::Token(TokenID id, Position positionArg) : id(id), value(getTokenByID(id)), position(positionArg) {
+Token::Token(TokenID idArg, Position positionArg, std::string valueArg)
+        : id(idArg), position(positionArg) {
+    value = valueArg.empty() ? getTokenByID(idArg) : valueArg;
 }
 
 std::unordered_map <TokenID, std::string> Token::nameMap = {
