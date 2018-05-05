@@ -5,7 +5,7 @@
 #include <ostream>
 
 struct Position {
-    Position() : lineNr(1), charNr(1) {};
+    Position(int lNo = 1, int cNo = 1) : lineNr(lNo), charNr(cNo) {};
 
     int lineNr;
     int charNr;

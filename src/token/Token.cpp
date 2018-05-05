@@ -1,6 +1,6 @@
 #include "Token.h"
 
-Token::Token(TokenID &id) : id(id), value(""), position() {
+Token::Token(TokenID id, Position positionArg) : id(id), value(getTokenByID(id)), position(positionArg) {
 }
 
 std::unordered_map <TokenID, std::string> Token::nameMap = {
@@ -53,4 +53,16 @@ std::string Token::getTokenByID(TokenID tokenID) {
 TokenID Token::getKeywordByName(std::string name) {
     auto iter = keywordMap.find(name);
     return iter == keywordMap.end() ? TokenID::Invalid : iter->second;
+}
+
+TokenID Token::getId() const {
+    return id;
+}
+
+const std::string &Token::getValue() const {
+    return value;
+}
+
+const Position &Token::getPosition() const {
+    return position;
 }

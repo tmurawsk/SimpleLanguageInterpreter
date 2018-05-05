@@ -7,7 +7,7 @@
 
 class Lexer {
 public:
-    explicit Lexer(std::string filename);
+    explicit Lexer(std::istream &istream);
     ~Lexer();
 
 private:
@@ -15,8 +15,14 @@ private:
     std::string token;
 
 public:
-    TokenID nextToken();
+    Token nextToken();
     void lexError(std::string msg);
+
+private:
+    Token nameTokenHandler(char c);
+    Token numberTokenHandler(char c);
+    Token otherTokenHandler(char c);
+    Token ifNextIsEqual(char expectedChar, TokenID tokenIfTrue, TokenID tokenIfFalse);
 };
 
 

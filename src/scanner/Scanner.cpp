@@ -1,23 +1,14 @@
 #include <iostream>
 #include "Scanner.h"
 
-Scanner::Scanner(std::string filename) {
-    this->filename = filename;
+Scanner::Scanner(std::istream &istreamArg) : istream(istreamArg) {
     position = Position();
-    file.open(this->filename, std::ios::in);
-
-    if(!file.good()){
-        std::cerr << "FATAL ERROR! CANNOT OPEN SOURCE FILE!" << std::endl;
-        exit(1);
-    }
 }
 
-Scanner::~Scanner() {
-    file.close();
-}
+Scanner::~Scanner() = default;
 
 char Scanner::nextChar() {
-    char c = (char) file.get();
+    char c = (char) istream.get();
 
     if(c == '\n') {
         position.charNr = 1;
@@ -29,16 +20,16 @@ char Scanner::nextChar() {
 }
 
 char Scanner::peekChar() {
-    return (char) file.peek();
+    return (char) istream.peek();
 }
 
 void Scanner::fallBack(int offset) {
-    file.seekg(-offset, std::ios_base::cur);
+    istream.seekg(-offset, std::ios_base::cur);
 
-    if(file.get() == '\n')
+    if(istream.get() == '\n')
         position.lineNr--;
 
-    file.seekg(-1, std::ios_base::cur);
+    istream.seekg(-1, std::ios_base::cur);
 }
 
 Position Scanner::getPosition() {

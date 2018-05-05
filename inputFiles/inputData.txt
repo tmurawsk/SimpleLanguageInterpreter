@@ -21,6 +21,7 @@ func foo (num a) mat3 {
 func main () num {
     num n = 5;
     mat3 matrix = foo(n);
+    wdokwodwkfjoEFJEJFOIWJEjeOVEOIVNEJVeojfaiovjoIEVANVNnvainvvainvvnnvjfnvjasdfghjkjhgfdsasdfghjkasdfghjkasdfghjasdfgh
 
     print ("My num: " + n);
     print ("My matrix: " + matrix);

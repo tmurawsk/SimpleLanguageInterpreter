@@ -6,12 +6,11 @@
 
 class Scanner {
 public:
-    explicit Scanner(std::string filename);
+    explicit Scanner(std::istream &istreamArg);
     ~Scanner();
 
 private:
-    std::string filename;
-    std::fstream file;
+    std::istream &istream;
     Position position;
 
 public:

@@ -17,7 +17,7 @@ enum class TokenID {
 
 class Token {
 public:
-    explicit Token(TokenID &id);
+    explicit Token(TokenID id = TokenID::Invalid, Position positionArg = Position());
 
 private:
     TokenID id;
@@ -30,6 +30,12 @@ private:
 public:
     static std::string getTokenByID(TokenID tokenID);
     static TokenID getKeywordByName(std::string name);
+
+    TokenID getId() const;
+
+    const std::string &getValue() const;
+
+    const Position &getPosition() const;
 };
 
 #endif //SIMPLELANGUAGEINTERPRETER_TOKEN_H

@@ -5,13 +5,20 @@
 
 int main() {
 
-    Lexer *lexer = new Lexer("../inputFiles/inputData.txt");
-    TokenID tokenID;
+    std::filebuf fb;
+    if(!fb.open("../inputFiles/inputData.txt", std::ios::in)){
+        std::cerr << "ERROR OPENING FILE!" << std::endl;
+        exit(1);
+    }
+
+    std::istream is(&fb);
+    Lexer *lexer = new Lexer(is);
+    Token token;
 
     do {
-        tokenID = lexer->nextToken();
-        std::cout << Token::getTokenByID(tokenID) << std::endl;
-    }while(tokenID != TokenID::Eof);
+        token = lexer->nextToken();
+        std::cout << token.getValue() << std::endl;
+    }while(token.getId() != TokenID::Eof);
 
     delete lexer;
 
