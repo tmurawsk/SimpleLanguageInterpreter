@@ -1,3 +1,4 @@
+#include <allegro/internal/aintern.h>
 #include "Variable.h"
 
 Variable::Variable(VariableType typeArg) : type(typeArg) {
@@ -14,6 +15,20 @@ const std::vector<int> &Variable::getVariables() const {
 
 void Variable::addVariable(int var) {
     variables.push_back(var);
+}
+
+void Variable::eraseVariables() {
+    variables.clear();
+}
+
+bool Variable::operator=(const Variable &var){
+    if(type != var.getType())
+        return false;
+
+    (*this).eraseVariables();
+    (*this).variables = var.getVariables();
+
+    return true;
 }
 
 bool Variable::operator==(const Variable &var) const {
@@ -78,6 +93,18 @@ Variable Variable::operator+(const Variable &var) const {
         newVar.addVariable(variables[i] + secVar[i]);
 
     return newVar;
+}
+
+Variable::operator bool() const {
+    return !variables.empty();
+}
+
+bool Variable::operator&&(const Variable &var) const {
+    return (*this).areValuesNotZeroes() && var.areValuesNotZeroes();
+}
+
+bool Variable::operator||(const Variable &var) const {
+    return (*this).areValuesNotZeroes() || var.areValuesNotZeroes();
 }
 
 Variable Variable::operator-(const Variable &var) const {
@@ -149,4 +176,27 @@ Variable Variable::operator/(const Variable &var) const {
     }
     else
         return Variable(VariableType::Invalid); //TODO throw exception
+}
+
+bool Variable::areValuesNotZeroes() const {
+    if(variables.empty())
+        return false;
+
+    for(int i = 0; i < variables.size(); i++)
+        if(variables[i] != 0)
+            return true;
+
+    return false;
+}
+
+Variable Variable::evaluate() const {
+    return *this;
+}
+
+std::string Variable::toString() const {
+    return std::__cxx11::string();
+}
+
+void Variable::setType(VariableType type) {
+    Variable::type = type;
 }

@@ -22,7 +22,5 @@ int main() {
 
     delete lexer;
 
-    // TODO: blok powinien mieć listę zmiennych (zasięg zmiennych)
-
     return 0;
 }
