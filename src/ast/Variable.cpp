@@ -1,4 +1,3 @@
-#include <allegro/internal/aintern.h>
 #include "Variable.h"
 
 Variable::Variable(VariableType typeArg) : type(typeArg) {

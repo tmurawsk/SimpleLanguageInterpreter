@@ -7,13 +7,13 @@
 
 class AssignStatement : public Statement{
 public:
-    AssignStatement(Variable &var, MathExpression expr);
+    AssignStatement(Variable &var, MathExpression* expr);
 
     void evaluate() override;
 
 private:
     Variable &variable;
-    MathExpression expression;
+    MathExpression* expression;
 };
 
 

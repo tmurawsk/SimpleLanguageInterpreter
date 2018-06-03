@@ -37,23 +37,29 @@ void Lexer::lexError(std::string msg) {
 
 Token Lexer::nameTokenHandler(char c) {
     Position pos = scanner.getPosition();
+    pos.charNr--;
 
-    do {
+    token += c;
+    c = scanner.peekChar();
+
+    while (isalnum(c) || c == '_') {
+        scanner.nextChar();
         token += c;
+
         if (token.length() >= NAMEMAXLENGTH) {
             lexError("ERROR: NAME TOO LONG!");
 
-            while (isalnum(c) || c == '_')
-                c = scanner.nextChar();
+            c = scanner.peekChar();
+            while (isalnum(c) || c == '_') {
+                scanner.nextChar();
+                c = scanner.peekChar();
+            }
 
-            scanner.fallBack(1);
             return Token(TokenID::Invalid, pos);
         }
 
-        c = scanner.nextChar();
-    } while (isalnum(c) || c == '_');
-
-    scanner.fallBack(1);
+        c = scanner.peekChar();
+    }
 
     TokenID tokenID = Token::getKeywordByName(token);
 
@@ -67,32 +73,39 @@ Token Lexer::numberTokenHandler(char c) {
     int num = 0;
     Position pos = scanner.getPosition();
 
-    do {
+    num = num * 10 + (c - '0');
+    c = scanner.peekChar();
+
+    while(isdigit(c)) {
         num = num * 10 + (c - '0');
+        scanner.nextChar();
+
         if (num > INT_MAX || num < 0) {
             lexError("ERROR: NUMBER OUT OF LIMITS!");
 
-            while (isdigit(c))
-                c = scanner.nextChar();
+            c = scanner.peekChar();
+            while (isdigit(c)) {
+                scanner.nextChar();
+                c = scanner.peekChar();
+            }
 
-            scanner.fallBack(1);
             return Token(TokenID::Invalid, pos);
         }
 
-        c = scanner.nextChar();
-    } while (isdigit(c));
+        c = scanner.peekChar();
+    }
 
     if (isalpha(c)) {
         lexError("ERROR: INVALID TOKEN");
 
-        while(isalnum(c))
-            c = scanner.nextChar();
+        c = scanner.peekChar();
+        while(isalnum(c)) {
+            scanner.nextChar();
+            c = scanner.peekChar();
+        }
 
-        scanner.fallBack(1);
         return Token(TokenID::Invalid, pos);
     }
-
-    scanner.fallBack(1);
 
     return Token(TokenID::Number, pos, std::to_string(num));
 }

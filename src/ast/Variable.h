@@ -2,6 +2,7 @@
 #define SIMPLELANGUAGEINTERPRETER_VARIABLE_H
 
 #include <vector>
+#include <string>
 #include <ast/expression/MathExpression.h>
 
 enum class VariableType {

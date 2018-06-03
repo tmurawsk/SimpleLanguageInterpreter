@@ -26,9 +26,14 @@ char Scanner::peekChar() {
 void Scanner::fallBack(int offset) {
     istream.seekg(-offset, std::ios_base::cur);
 
-    if(istream.get() == '\n')
+    char c = (char) istream.get();
+//    if(istream.get() == '\n')
+        if(c == '\n')
         position.lineNr--;
 
+        std::cout << "ZNAKZNAKZNAK: |" << c << "|" << std::endl;
+
+    position.charNr -= offset;
     istream.seekg(-1, std::ios_base::cur);
 }
 

@@ -1,7 +1,9 @@
 #ifndef SIMPLELANGUAGEINTERPRETER_PARSER_H
 #define SIMPLELANGUAGEINTERPRETER_PARSER_H
 
+#include <memory>
 #include <lexer/Lexer.h>
+#include "ast/Variable.h"
 #include <ast/expression/MathExpression.h>
 
 class Parser
@@ -12,12 +14,12 @@ public:
 private:
     Lexer lexer;
 
-    MathExpression mathSumExprParse();
-    MathExpression mathMultExprParse();
-    MathExpression mathBaseExprParse();
-    MathExpression mathBracketExprParse();
+    MathExpression* mathSumExprParse();
+    MathExpression* mathMultExprParse();
+    MathExpression* mathBaseExprParse();
+    MathExpression* mathBracketExprParse();
 
-    Variable matrixLiteralParse();
+    Variable* matrixLiteralParse();
 
     Token checkNextTokenThrow(TokenID tokenID);
 //    string input;    // analizowany tekst
