@@ -30,7 +30,7 @@ public:
     }
 
 private:
-    static std::map<std::string, Variable&> varMap;
+    static std::map<std::string, Variable> varMap;
 };
 
 

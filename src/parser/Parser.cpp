@@ -54,7 +54,10 @@ MathExpression *Parser::mathBaseExprParse() {
         if (var.getType() == VariableType::Invalid)
             return nullptr; //TODO throw exception
 
-        return &var;
+        Variable *newVar = new Variable(var.getType());
+        *newVar = var;
+
+        return newVar;
     }
     //TODO functionCall
 }
