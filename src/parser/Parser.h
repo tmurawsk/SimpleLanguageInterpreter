@@ -5,13 +5,14 @@
 #include <lexer/Lexer.h>
 #include "ast/Variable.h"
 #include <ast/expression/MathExpression.h>
+#include <ast/expression/LogicExpression.h>
 
 class Parser {
 public:
-    explicit Parser(Lexer lexer);
+    explicit Parser(Lexer *lexer);
 
-private:
-    Lexer lexer;
+    Lexer *lexer;
+    Token currToken;
 
     MathExpression *mathSumExprParse();
 
@@ -21,12 +22,16 @@ private:
 
     MathExpression *mathBracketExprParse();
 
+    LogicExpression *logicOrExprParse();
+    LogicExpression *logicAndExprParse();
+    LogicExpression *logicRelationExprParse();
+    LogicExpression *logicBaseExprParse();
+    LogicExpression *logicBracketExprParse();
+
     Variable *matrixLiteralParse();
 
     Token checkNextTokenThrow(TokenID tokenID);
-//    string input;    // analizowany tekst
-//    size_t position; // wskaźnik na aktualnie "oglądany" znak
-//
+
 //public:
 //
 //    Parser(string input);

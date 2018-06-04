@@ -2,7 +2,6 @@
 #define SIMPLELANGUAGEINTERPRETER_VARIABLE_H
 
 #include <vector>
-#include <string>
 #include <ast/expression/MathExpression.h>
 
 enum class VariableType {
@@ -20,9 +19,9 @@ public:
 
     void setType(VariableType type);
 
-    const std::vector<int> &getVariables() const;
-    void addVariable(int var);
-    void eraseVariables();
+    const std::vector<int> &getValues() const;
+    void addValue(int var);
+    void eraseValues();
 
     Variable evaluate() const override;
 
@@ -53,7 +52,7 @@ public:
 
 private:
     VariableType type;
-    std::vector<int> variables;
+    std::vector<int> values;
 
     Variable numberNumberMultiply(const Variable &numberVar1, const Variable &numberVar2) const;
     Variable numberMatrixMultiply(const Variable &numberVar, const Variable &matrixVar) const;

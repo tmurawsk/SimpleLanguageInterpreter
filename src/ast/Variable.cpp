@@ -1,31 +1,31 @@
 #include "Variable.h"
 
 Variable::Variable(VariableType typeArg) : type(typeArg) {
-    variables = std::vector<int>();
+    values = std::vector<int>();
 }
 
 VariableType Variable::getType() const {
     return type;
 }
 
-const std::vector<int> &Variable::getVariables() const {
-    return variables;
+const std::vector<int> &Variable::getValues() const {
+    return values;
 }
 
-void Variable::addVariable(int var) {
-    variables.push_back(var);
+void Variable::addValue(int var) {
+    values.push_back(var);
 }
 
-void Variable::eraseVariables() {
-    variables.clear();
+void Variable::eraseValues() {
+    values.clear();
 }
 
 bool Variable::operator=(const Variable &var){
     if(type != var.getType())
         return false;
 
-    (*this).eraseVariables();
-    (*this).variables = var.getVariables();
+    (*this).eraseValues();
+    (*this).values = var.getValues();
 
     return true;
 }
@@ -35,10 +35,10 @@ bool Variable::operator==(const Variable &var) const {
     if(type != var.getType())
         return false; //TODO throw exception
     else {
-        const std::vector<int> &secVar = var.getVariables();
+        const std::vector<int> &secVar = var.getValues();
 
-        for(int i = 0; i < variables.size(); i++)
-            if(variables[i] != secVar[i])
+        for(int i = 0; i < values.size(); i++)
+            if(values[i] != secVar[i])
                 return false;
         return true;
     }
@@ -53,7 +53,7 @@ bool Variable::operator<(const Variable &var) const {
         return false; //TODO throw exception
 
 
-    return variables[0] < var.getVariables()[0];
+    return values[0] < var.getValues()[0];
 }
 
 bool Variable::operator>(const Variable &var) const {
@@ -61,7 +61,7 @@ bool Variable::operator>(const Variable &var) const {
         return false; //TODO throw exception
 
 
-    return variables[0] > var.getVariables()[0];
+    return values[0] > var.getValues()[0];
 }
 
 bool Variable::operator<=(const Variable &var) const {
@@ -75,8 +75,8 @@ bool Variable::operator>=(const Variable &var) const {
 Variable Variable::operator-() const{
     Variable newVar = *this;
 
-    for(int i = 0; i < variables.size(); i++)
-        newVar.addVariable(-variables[i]);
+    for(int i = 0; i < values.size(); i++)
+        newVar.addValue(-values[i]);
 
     return newVar;
 }
@@ -86,16 +86,16 @@ Variable Variable::operator+(const Variable &var) const {
         return Variable(VariableType::Invalid); //TODO throw exception
 
     Variable newVar = Variable(type);
-    const std::vector<int> &secVar = var.getVariables();
+    const std::vector<int> &secVar = var.getValues();
 
-    for(int i = 0; i < variables.size(); i++)
-        newVar.addVariable(variables[i] + secVar[i]);
+    for(int i = 0; i < values.size(); i++)
+        newVar.addValue(values[i] + secVar[i]);
 
     return newVar;
 }
 
 Variable::operator bool() const {
-    return !variables.empty();
+    return !values.empty();
 }
 
 bool Variable::operator&&(const Variable &var) const {
@@ -131,18 +131,18 @@ Variable Variable::operator*(const Variable &var) const {
 
 Variable Variable::numberNumberMultiply(const Variable &numberVar1, const Variable &numberVar2) const {
     Variable newVar = Variable(numberVar1.getType());
-    newVar.addVariable(numberVar1.getVariables()[0] * numberVar2.getVariables()[0]);
+    newVar.addValue(numberVar1.getValues()[0] * numberVar2.getValues()[0]);
 
     return newVar;
 }
 
 Variable Variable::numberMatrixMultiply(const Variable &numberVar, const Variable &matrixVar) const{
-    int multNum = numberVar.getVariables()[0];
-    const std::vector<int> &secVar = matrixVar.getVariables();
+    int multNum = numberVar.getValues()[0];
+    const std::vector<int> &secVar = matrixVar.getValues();
     Variable newVar = Variable(matrixVar.getType());
 
     for(int i = 0; i < secVar.size(); i++)
-        newVar.addVariable(multNum * secVar[i]);
+        newVar.addValue(multNum * secVar[i]);
 
     return newVar;
 }
@@ -151,8 +151,8 @@ Variable Variable::matrixMatrixMultiply(const Variable &matrixVar1, const Variab
     int dimension = matrixVar1.getType() == VariableType::Matrix2 ? 2 : 3;
     int nextElem;
     Variable newVar = Variable(matrixVar1.getType());
-    const std::vector<int> &mat1 = matrixVar1.getVariables();
-    const std::vector<int> &mat2 = matrixVar2.getVariables();
+    const std::vector<int> &mat1 = matrixVar1.getValues();
+    const std::vector<int> &mat2 = matrixVar2.getValues();
 
     for(int i = 0; i < dimension; i++) {
         for (int j = 0; j < dimension; j++){
@@ -160,7 +160,7 @@ Variable Variable::matrixMatrixMultiply(const Variable &matrixVar1, const Variab
             for(int k = 0; k < dimension; k++)
                 nextElem += mat1[i * dimension + k] * mat2[k * dimension + j];
 
-            newVar.addVariable(nextElem);
+            newVar.addValue(nextElem);
         }
     }
 
@@ -170,7 +170,7 @@ Variable Variable::matrixMatrixMultiply(const Variable &matrixVar1, const Variab
 Variable Variable::operator/(const Variable &var) const {
     if(type == VariableType::Number && var.getType() == VariableType::Number){
         Variable newVar = Variable(type);
-        newVar.addVariable(variables[0] / var.getVariables()[0]);
+        newVar.addValue(values[0] / var.getValues()[0]);
         return newVar;
     }
     else
@@ -178,11 +178,11 @@ Variable Variable::operator/(const Variable &var) const {
 }
 
 bool Variable::areValuesNotZeroes() const {
-    if(variables.empty())
+    if(values.empty())
         return false;
 
-    for(int i = 0; i < variables.size(); i++)
-        if(variables[i] != 0)
+    for(int i = 0; i < values.size(); i++)
+        if(values[i] != 0)
             return true;
 
     return false;

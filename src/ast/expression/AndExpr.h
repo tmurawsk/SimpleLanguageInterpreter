@@ -1,15 +1,15 @@
 #ifndef SIMPLELANGUAGEINTERPRETER_ANDEXPR_H
 #define SIMPLELANGUAGEINTERPRETER_ANDEXPR_H
 
-#include "LogicExpr.h"
+#include "LogicExpression.h"
 
 class AndExpr : public LogicExpression{
 public:
-    AndExpr(LogicExpr *leftExpr, LogicExpr *rightExpr);
+    AndExpr(LogicExpression *leftExpr, LogicExpression *rightExpr);
 
 private:
-    LogicExpr *leftExpr;
-    LogicExpr *rightExpr;
+    LogicExpression *leftExpr;
+    LogicExpression *rightExpr;
 
 public:
     bool evaluate() const override;

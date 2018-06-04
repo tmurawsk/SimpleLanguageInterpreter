@@ -1,6 +1,6 @@
 #include "AndExpr.h"
 
-AndExpr::AndExpr(LogicExpr *leftExpr, LogicExpr *rightExpr)
+AndExpr::AndExpr(LogicExpression *leftExpr, LogicExpression *rightExpr)
         : leftExpr(leftExpr), rightExpr(rightExpr) {}
 
 bool AndExpr::evaluate() const {

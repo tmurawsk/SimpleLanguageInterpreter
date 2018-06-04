@@ -1,4 +1,5 @@
 #include <iostream>
+#include <parser/Parser.h>
 
 #include "lexer/Lexer.h"
 #include "token/Token.h"
@@ -15,12 +16,16 @@ int main() {
     Lexer *lexer = new Lexer(is);
     Token token;
 
+    Parser *parser = new Parser(lexer);
+
     do {
-        token = lexer->nextToken();
-        std::cout << token.getValue() << std::endl;
+//        token = lexer->nextToken();
+//        std::cout << token.getValue() << std::endl;
+        parser->mathSumExprParse();
     }while(token.getId() != TokenID::Eof);
 
     delete lexer;
+    delete parser;
 
     return 0;
 }

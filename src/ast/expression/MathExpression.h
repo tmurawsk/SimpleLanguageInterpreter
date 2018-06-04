@@ -2,7 +2,6 @@
 #define SIMPLELANGUAGEINTERPRETER_EXPRESSION_H
 
 #include <iostream>
-//#include <ast/Variable.h>
 #include <token/Token.h>
 
 class Variable;
