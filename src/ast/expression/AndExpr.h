@@ -1,9 +1,20 @@
 #ifndef SIMPLELANGUAGEINTERPRETER_ANDEXPR_H
 #define SIMPLELANGUAGEINTERPRETER_ANDEXPR_H
 
-#include "MathExpression.h"
+#include "LogicExpr.h"
 
-class AndExpr{
+class AndExpr : public LogicExpression{
+public:
+    AndExpr(LogicExpr *leftExpr, LogicExpr *rightExpr);
+
+private:
+    LogicExpr *leftExpr;
+    LogicExpr *rightExpr;
+
+public:
+    bool evaluate() const override;
+
+    std::string toString() const override;
 };
 
 

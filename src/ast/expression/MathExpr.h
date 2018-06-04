@@ -4,15 +4,16 @@
 #include "ast/Variable.h"
 #include "MathExpression.h"
 
-class MathExpr : public MathExpression{
+class MathExpr : public MathExpression {
 public:
-    explicit MathExpr(MathExpression* leftExprArg, MathExpression* rightExprArg, Token opArg);
+    explicit MathExpr(MathExpression *leftExprArg, MathExpression *rightExprArg, Token opArg);
 
 private:
-    MathExpression* leftExpr;
-    MathExpression* rightExpr;
+    MathExpression *leftExpr;
+    MathExpression *rightExpr;
     Token op;
 
+public:
     Variable evaluate() const override;
 
     std::string toString() const override;

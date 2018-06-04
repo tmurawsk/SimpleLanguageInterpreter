@@ -6,20 +6,22 @@
 #include "ast/Variable.h"
 #include <ast/expression/MathExpression.h>
 
-class Parser
-{
+class Parser {
 public:
     explicit Parser(Lexer lexer);
 
 private:
     Lexer lexer;
 
-    MathExpression* mathSumExprParse();
-    MathExpression* mathMultExprParse();
-    MathExpression* mathBaseExprParse();
-    MathExpression* mathBracketExprParse();
+    MathExpression *mathSumExprParse();
 
-    Variable* matrixLiteralParse();
+    MathExpression *mathMultExprParse();
+
+    MathExpression *mathBaseExprParse();
+
+    MathExpression *mathBracketExprParse();
+
+    Variable *matrixLiteralParse();
 
     Token checkNextTokenThrow(TokenID tokenID);
 //    string input;    // analizowany tekst
